@@ -26,220 +26,113 @@
 </head>
 
 <body>
+<body>
     <div id="app">
-
-        <!-- shoping cart -->
         <header>
-            <h1>{{sitename}}</h1>
-            <button  v-on:click="showcheckout" v-if="enableshoppingcart">shopping cart</button>
-            <P v-else>Shopping Cart</P>
-            <div v-for="product in cart" style="display:inline-block;">
-                <figure>
-                    <img v-bind:src="product.image" width="200" height="200">
-                </figure>
-                <h2 v-html="product.subject"></h2>
-               <span> <P>Locatioc:{{product.location}}</P>
-                <p>Price:{{product.price}}</p>
-                <P>Number of spaces: {{product.availableInventory}}</P>
-            </span>
-                <button class="fa fa-trash" v-on:click="removefromcart(product)"> Remove Product</button>
-            </div>
+            <h1 v-text="sitename"></h1>
+            <button v-on:click='showCheckout'>
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span> Checkout
+            </button>
         </header>
-
         <main>
-            <div v-if="showproduct">
-
-                <div v-for="product in products">
-
+            <div v-if='showProduct'>
+                <div v-for="product in sortedProducts">
+                    <h2 v-text="product.subject"></h2>
                     <figure>
-                        <img v-bind:src="product.image" width="200" height="200">
+                        <img width="100" height="100" v-bind:src="product.image">
                     </figure>
+                    <p v-html="product.description"></p>
+                    <p>Subject: {{product.subject}}</p>
+                    <p>Location: {{product.location}}</p>
+                    <p>Price: <strong>£</strong>{{product.price}}</p>
+                    <p>Space: {{product.spaces}}</p>
 
-                    <h2 v-html="product.subject"></h2>
-                    <p>ID : {{ product._id}}</p>
-                    <P>Location: {{product.location}}</P>
-                    <p>Price: {{product.price}}</p>
-                    <P>Number of spaces: {{product.availableInventory}}</P>
-                    <button v-on:click="decrement_inventory(product); addtocart(product); " v-if="isenable(product)">
-                        ADD TO CART</button>
-                    <!-- only show the button when 'canAddToCart' is true when it becomes false the button disappers -->
+                    <button v-on:click='addToCart(product)' v-if='canAddToCart(product)'>Add to cart</button>
 
-                    <button disabled="disabled" v-else>DISABLE</button>
+                    <button disabled="disabled" v-else>Add to cart</button>
+
+                    <span v-if='product.spaces === cartCount(product.id)'>All out!</span>
+                    <span v-else-if="product.spaces - cartCount(product.id) < 5">
+                        Only {{product.spaces - cartCount(product.id)}} left!
+                    </span>
+                    <span v-else>Buy now!</span>
                 </div>
             </div>
-
             <div v-else>
                 <h2>Checkout</h2>
+                <p>
+                    <strong>Name:</strong>
+                    <input v-model="order.name" />
+                </p>
+    
+                <p>
+                    <strong>Phone:</strong>
+                    <input v-model.number="order.phone" type="number" />
+                </p>
 
-
-                <form @submit="submitForm">
-                    <ul>
-                        <p>
-                            <strong>Name:</strong>
-                            <input id="name" required v-model.trim="order.name" type="text" />
-                        </p>
-                        <p><strong>Phone : </strong><input id="phone" required v-model.number='order.phone'
-                                type="number"></p>
-
-
-                        <input type="submit">
-                </form>
-
+                <h2>Order Information</h2>
+                <p>Name: {{order.name}}</p>
+                <p>Phone: {{order.phone}}</p>
+                <button v-on:click="submitForm">Checkout</button>
             </div>
         </main>
     </div>
 
-
     <script type="text/javascript">
         var webstore = new Vue({
-            el: "#app",
+            el: '#app',
             data: {
-                sitename: "After School Lessons",
-                products: [],
-
-                lessons: [],
+                sitename: 'Lesson Activities',
+                products: products,
+    
                 cart: [],
-                cartID: [],
-                showproduct: true,
-
+                showProduct: true,
                 order: {
-                    name: "",
-                    phone: null
-
+                    Name: '',
+                    Phone: ''
                 },
-
             },
             methods: {
-                decrement_inventory(product) {
-                    product.availableInventory = product.availableInventory - 1;
+                addToCart(product) {
+                    this.cart.push(product.id);
                 },
-                isenable: function (product) {
-                    if (product.availableInventory > 0) {
-                        return true
-                    }
-                    else {
-                        return false
-                    }
+                showCheckout() {
+                    this.showProduct = this.showProduct ? false : true;
                 },
-
-                addtocart: function (product) {
-                    this.cart.push(product);
-                    console.log(product);
-                    this.cartID.push(product.id)
-                   
-
-                    const newavailableInventory = product.availableInventory;
-
-
-                    fetch('https://moscst3145.herokuapp.com/collection/products/' + product._id, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ availableInventory: newavailableInventory })
-                    }).then(function (data) {
-                     
-                     
-                    });
-
-
-                },
-                showcheckout() {
-                    this.showproduct = this.showproduct ? false : true;
-                },
-                removefromcart: function (product) {
-
-                    product.availableInventory = product.availableInventory + 1;
-                    const newavail = product.availableInventory;
-                    this.cart.pop(product)
-                    fetch('https://moscst3145.herokuapp.com/collection/products/' + product._id, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ availableInventory: newavail })
-                    }).then(function (data) {
-                   
-                       
-
-                    });
-
-
-                },
-
-
                 submitForm() {
-                    fetch('https://moscst3145.herokuapp.com/collection/orders', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ Name: this.order.name, Phone: this.order.phone, ProductsInOrders: this.cart.map(({ subject }) => subject) })}).then(function () {
-
-
-                    });
-
-                    this.cart.forEach(element => {
-
-                        fetch('https://moscst3145.herokuapp.com/collection/products/' + element._id, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ availableInventory: element.availableInventory })}).then(function (data) {
-                         
-
-                        });
-
-                    });
-
-
-                    alert('Order submitted')
+                    alert('Order has been submitted!')
                 },
-
+                canAddToCart(product) {
+                    return product.spaces > this.cartCount(product.id);
+                },
                 cartCount(id) {
                     let count = 0;
-                    for (let i = 0; i < this.cartID.length; i++) {
-                        if (this.cartID[i] === id) {
-                            count++
+                    for (let i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i] === id) {
+                            count++;
                         }
                     }
                     return count;
-                },
-
+                }
             },
-
             computed: {
-                enableshoppingcart: function () {
-                    if (this.cart.length > 0) {
-                        return true
-                    }
-                    else {
-                        return false
-                    }
+                cartItemCount() {
+                    return this.cart.length;
                 },
-
-
+                sortedProducts() {
+                    function compare(a, b) {
+                        if (a.price > b.price)
+                            return 1;
+                        if (a.price < b.price)
+                            return -1;
+                        return 0;
+                    }
+                    return this.products.sort(compare)
+                }
             },
-
-            created: function () {
-
-                fetch('https://moscst3145.herokuapp.com/collection/products').then(
-                    function (response) {
-                        response.json().then(
-                            function (json) {
-                                webstore.products = json;
-                               
-                            });
-                    });
-
-            }
-
-
         });
-
     </script>
-
 </body>
 
 </html>
