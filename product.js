@@ -1,4 +1,4 @@
-let products = [
+let product = [
     {
         "image": "Client/images/file.jpg",
         "subject": "Physics",
