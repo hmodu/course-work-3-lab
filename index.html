@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Group 3 - School Lesson</title>
+    <title>After school club</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,7 +13,7 @@
             navigator.serviceWorker.register('service-worker.js');
         };
     </script>
-    <link rel="manifest" href="lesson.webmanifest">
+    <link rel="manifest" href="AfterSchoolLesson.webmanifest">
 </head>
 
 <body>
@@ -68,6 +68,12 @@
                                     <button class="btn btn-info" disabled='disabled' v-else>Add to Cart</button>
                                     <!-- This button will be disabled otherwise -->
 
+
+                                    <!-- Star Rating -->
+                                    <div>
+                                        <span v-for="n in product.rating">&#9733;</span>
+                                        <span v-for="n in 5-product.rating">&#9734;</span>
+                                    </div>
                                 </div>
                             </div>
                             <div v-else>
