@@ -1,6 +1,6 @@
 let product = [
     {
-        "image": "/images/file.jpg",
+        "image": "images/file.jpg",
         "subject": "Physics",
         "price": 50,
         "location": "Geneva",
