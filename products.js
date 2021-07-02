@@ -68,5 +68,5 @@ let products = [
         "price": 26,
         "location": "Toronto",
         "availableInventory": 5,
-    }
+    },
 ]
