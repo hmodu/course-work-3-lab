@@ -5,6 +5,7 @@ let products = [
         "price": 50,
         "location": "Geneva",
         "availableInventory": 5,
+        "rating": 3,
     },
     {
         "image": "/images/che.png",
