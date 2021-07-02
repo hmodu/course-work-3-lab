@@ -1,69 +1,69 @@
 let product = [
     {
-        "image": "Client/images/file.jpg",
+        "image": "/images/file.jpg",
         "subject": "Physics",
         "price": 50,
         "location": "Geneva",
         "availableInventory": 5
     },
     {
-        "image": "che.png",
+        "image": "/images/che.png",
         "subject": "Chemistry",
         "price": 35,
         "location": "Lagos",
         "availableInventory": 5
     },
     {
-        "image": "bio.jpg",
+        "image": "/images/bio.jpg",
         "subject": "Biology",
         "price": 38,
         "location": "Abuja",
         "availableInventory": 5
     },
     {
-        "image": "psy.jpg",
+        "image": "/images/psy.jpg",
         "subject": "Psychology",
         "price": 39,
         "location": "Ontario",
         "availableInventory": 5
     },
     {
-        "image": "geo.png",
+        "image": "/images/geo.png",
         "subject": "Geography",
         "price": 42,
         "location": "Granada",
         "availableInventory": 5
     },
     {
-        "image": "zoo.jpg",
+        "image": "/images/zoo.jpg",
         "subject": "Zoology",
         "price": 49,
         "location": "Conackry",
         "availableInventory": 5
     },
     {
-        "image": "eng.jpg",
+        "image": "/images/eng.jpg",
         "subject": "Engineering",
         "price": 38,
         "location": "Munich",
         "availableInventory": 5
     },
     {
-        "image": "com.jpg",
+        "image": "/images/com.jpg",
         "subject": "Computer",
         "price": 41,
         "location": "Timbuktu",
         "availableInventory": 5
     },
     {
-        "image": "mat.jpg",
+        "image": "/images/mat.jpg",
         "subject": "Mathematics",
         "price": 47,
         "location": "Abuja",
         "availableInventory": 5
     },
     {
-        "image": "soc.png",
+        "image": "/images/soc.png",
         "subject": "Sociology",
         "price": 26,
         "location": "Toronto",
