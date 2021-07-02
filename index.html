@@ -1,30 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
-<title>CW 3 - Group</title>
-    <script src="https://unpkg.com/vue"></script>
+    <title>Group 3 - School Lesson</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="products.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="manifest" href="lesson.webmanifest">
-    <style>
-        .product {
-            border: 1px grey solid;
-            padding: 20px;
-            margin: 20px;
-            text-align: center;
-        }
-    </style>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js');
         };
     </script>
+    <link rel="manifest" href="lesson.webmanifest">
 </head>
-    
-</head>
-<header>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card" style="padding: 10px; margin-top: 10px; margin-bottom: 10px;">
+                    <div id="app">
+                        <div class="container">
+                            <h5>Sort By:</h5>
+                            <button class="btn btn-light btn-sm" @click='sortedPrice()'>Price</button>
+                            <button class="btn btn-light btn-sm" @click='sortedTitle()'>Subject</button>
+                            <button class="btn btn-light btn-sm" @click='sortedLocation()'>Location</button>
+                            <button class="btn btn-light btn-sm" @click='sortedAvailable()'>Availability</button>
+                            <div>
+                                <button class="btn btn-light btn-sm" style="margin-top: 5px;"
+                                    @click='sortedAscending()'>Ascending</button>
+                                <button class="btn btn-light btn-sm" style="margin-top: 5px;"
+                                    @click='sortedDescending()'>Descending</button>
+                            </div>
+                        </div>
+                        <header>
                             <h3> {{ sitename }}</h3>
                             <!-- <button class="btn btn-info" @click='' style="float: right;">Cart</button> -->
                             <button class="btn btn-info" @click='showCheckout' style="float: right;">
@@ -57,12 +68,6 @@
                                     <button class="btn btn-info" disabled='disabled' v-else>Add to Cart</button>
                                     <!-- This button will be disabled otherwise -->
 
-
-                                    <!-- Star Rating -->
-                                    <div>
-                                        <span v-for="n in product.rating">&#9733;</span>
-                                        <span v-for="n in 5-product.rating">&#9734;</span>
-                                    </div>
                                 </div>
                             </div>
                             <div v-else>
