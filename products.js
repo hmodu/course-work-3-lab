@@ -7,14 +7,14 @@ let products = [
         "availableInventory": 5,
     },
     {
-        "images": "images/che.png",
+        "images": "/images/che.png",
         "subject": "Chemistry",
         "price": 35,
         "location": "Lagos",
         "availableInventory": 5,
     },
     {
-        "images": "images/bio.jpg",
+        "images": "/images/bio.jpg",
         "subject": "Biology",
         "price": 38,
         "location": "Abuja",
