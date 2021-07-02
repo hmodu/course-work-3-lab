@@ -1,4 +1,4 @@
-var cacheName = 'AfterSchoolLesson-v1';
+var cacheName = 'AfterSchoolLesson';
 var cacheFiles = [
    'index.html',
    'group.html',
